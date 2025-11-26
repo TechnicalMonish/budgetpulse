@@ -36,7 +36,8 @@ BudgetPulse is a sleek, client-side personal finance tracker that helps you mana
 
 ### 📈 Financial Insights
 
-- Real-time summary statistics (Total Income, Total Expenses, Remaining Budget)
+- Real-time summary statistics (Total Income, Total Expenses, Remaining Budget, Savings)
+- Savings calculation (Income - Expenses) for quick financial health assessment
 - Interactive bar chart comparing income vs expenses
 - Color-coded indicators for quick financial health assessment
 
@@ -51,12 +52,14 @@ BudgetPulse is a sleek, client-side personal finance tracker that helps you mana
 
 - Automatic localStorage persistence
 - Data survives browser sessions
-- Pre-populated demo data on first run
+- Start with a clean slate - no pre-populated data
 - No account or server required
 
 ## 🖼️ Demo
 
-Simply open `index.html` in your browser to start using BudgetPulse immediately. On first run, sample transactions are loaded to demonstrate the app's capabilities.
+Try BudgetPulse live: **[https://technicalmonish.github.io/budgetpulse/](https://technicalmonish.github.io/budgetpulse/)**
+
+Start tracking your finances immediately with no setup required!
 
 ## 🚀 Installation
 
@@ -162,6 +165,7 @@ budgetpulse/
 - **Total Income**: Sum of all income transactions for the selected month
 - **Total Expenses**: Sum of all expense transactions for the selected month
 - **Remaining Budget**: Budget limit minus total expenses
+- **Savings**: Total income minus total expenses (shows your net savings)
 - **Status**: Green "Within Budget" or red "Over Budget" indicator
 
 ### Navigating Months
