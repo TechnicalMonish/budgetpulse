@@ -76,82 +76,15 @@ const AppController = (function () {
   }
 
   /**
-   * Loads seed data if this is the first time the app is run
-   * Populates localStorage with example transactions for demonstration
-   *
-   * Requirements: 6.4 - populate localStorage with example seed data on first run
+   * Placeholder for first run initialization
+   * No seed data is loaded - users start with a clean slate
    */
   function loadSeedDataIfFirstRun() {
-    // Check if app has been initialized before
-    const hasRun = localStorage.getItem(FIRST_RUN_KEY);
-    if (hasRun) {
-      return;
+    // No seed data - users start fresh
+    // Mark as initialized to prevent future checks
+    if (!localStorage.getItem(FIRST_RUN_KEY)) {
+      localStorage.setItem(FIRST_RUN_KEY, "true");
     }
-
-    // Get current date info for seed data
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth() + 1;
-    const monthStr = String(month).padStart(2, "0");
-
-    // Create sample transactions for current month
-    const seedTransactions = [
-      {
-        date: `${year}-${monthStr}-01`,
-        description: "Monthly Salary",
-        amount: 5000,
-        type: "income",
-      },
-      {
-        date: `${year}-${monthStr}-03`,
-        description: "Freelance Project",
-        amount: 800,
-        type: "income",
-      },
-      {
-        date: `${year}-${monthStr}-05`,
-        description: "Rent Payment",
-        amount: 1500,
-        type: "expense",
-      },
-      {
-        date: `${year}-${monthStr}-07`,
-        description: "Grocery Shopping",
-        amount: 250,
-        type: "expense",
-      },
-      {
-        date: `${year}-${monthStr}-10`,
-        description: "Utility Bills",
-        amount: 150,
-        type: "expense",
-      },
-      {
-        date: `${year}-${monthStr}-12`,
-        description: "Internet & Phone",
-        amount: 100,
-        type: "expense",
-      },
-      {
-        date: `${year}-${monthStr}-15`,
-        description: "Dining Out",
-        amount: 75,
-        type: "expense",
-      },
-    ];
-
-    // Add seed transactions
-    seedTransactions.forEach((transaction) => {
-      DataManager.addTransaction(transaction);
-    });
-
-    // Set default budget limit for current month
-    DataManager.setBudgetLimit(year, month, 3000);
-
-    // Mark as initialized
-    localStorage.setItem(FIRST_RUN_KEY, "true");
-
-    console.log("Seed data loaded for first run");
   }
 
   // ============================================================

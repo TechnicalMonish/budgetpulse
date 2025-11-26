@@ -265,6 +265,10 @@ body {
   color: var(--color-expense);
 }
 
+.summary-value.savings {
+  color: var(--accent-secondary);
+}
+
 .budget-status {
   display: inline-flex;
   align-items: center;

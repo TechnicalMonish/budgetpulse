@@ -28,6 +28,7 @@ const UIRenderer = (function () {
     totalIncome: document.getElementById("total-income"),
     totalExpenses: document.getElementById("total-expenses"),
     remainingBudget: document.getElementById("remaining-budget"),
+    totalSavings: document.getElementById("total-savings"),
     budgetStatus: document.getElementById("budget-status"),
 
     // Form elements
@@ -55,15 +56,15 @@ const UIRenderer = (function () {
   // ============================================================
 
   /**
-   * Formats a number as currency (USD)
+   * Formats a number as currency (INR)
    *
    * @param {number} amount - The amount to format
-   * @returns {string} Formatted currency string (e.g., "$1,234.56")
+   * @returns {string} Formatted currency string (e.g., "₹1,234.56")
    */
   function formatCurrency(amount) {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("en-IN", {
       style: "currency",
-      currency: "USD",
+      currency: "INR",
     }).format(amount);
   }
 
@@ -199,7 +200,7 @@ const UIRenderer = (function () {
 
   /**
    * Renders the summary statistics display
-   * Updates total income, total expenses, and remaining budget
+   * Updates total income, total expenses, remaining budget, and savings
    *
    * @param {Object} summary - Summary data object
    * @param {number} summary.budgetLimit - The budget limit
@@ -234,6 +235,21 @@ const UIRenderer = (function () {
       } else {
         elements.remainingBudget.classList.remove("expense");
         elements.remainingBudget.classList.add("income");
+      }
+    }
+
+    // Update savings (Income - Expenses)
+    if (elements.totalSavings) {
+      const savings = summary.totalIncome - summary.totalExpenses;
+      elements.totalSavings.textContent = formatCurrency(savings);
+
+      // Add visual indicator for negative savings
+      if (savings < 0) {
+        elements.totalSavings.classList.add("expense");
+        elements.totalSavings.classList.remove("savings");
+      } else {
+        elements.totalSavings.classList.remove("expense");
+        elements.totalSavings.classList.add("savings");
       }
     }
 
