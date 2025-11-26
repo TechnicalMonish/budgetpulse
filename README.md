@@ -236,6 +236,19 @@ Visualize spending patterns with charts to make informed financial decisions.
 
 This project is licensed under the ISC License.
 
+## 👨‍💻 Author
+
+**Technical Monish**
+
+Crafted with ❤️ by Technical Monish
+
+Connect with me:
+
+- 🔗 LinkedIn: [@technicalmonish](https://www.linkedin.com/in/technicalmonish)
+- 📸 Instagram: [@technicalmonish](https://www.instagram.com/technicalmonish)
+- 🎥 YouTube: [@technicalmonish](https://www.youtube.com/@technicalmonish)
+- 💻 GitHub: [@technicalmonish](https://github.com/technicalmonish)
+
 ---
 
 <div align="center">

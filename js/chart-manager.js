@@ -46,6 +46,8 @@ const ChartManager = (function () {
     incomeBg: "rgba(16, 185, 129, 0.7)",
     expense: "#ef4444", // --color-expense
     expenseBg: "rgba(239, 68, 68, 0.7)",
+    savings: "#06b6d4", // --accent-secondary
+    savingsBg: "rgba(6, 182, 212, 0.7)",
     textPrimary: "#eaeaea", // --text-primary
     textSecondary: "#a0a0a0", // --text-secondary
     gridColor: "rgba(255, 255, 255, 0.1)",
@@ -58,23 +60,28 @@ const ChartManager = (function () {
    *
    * @param {number} income - Total income amount
    * @param {number} expenses - Total expenses amount
+   * @param {number} savings - Total savings amount
    * @returns {Object} Chart.js configuration object
    */
-  function createChartConfig(income, expenses) {
+  function createChartConfig(income, expenses, savings) {
     return {
       type: "bar",
       data: {
-        labels: ["Income", "Expenses"],
+        labels: ["Income", "Expenses", "Savings"],
         datasets: [
           {
-            label: "Amount ($)",
-            data: [income, expenses],
-            backgroundColor: [colors.incomeBg, colors.expenseBg],
-            borderColor: [colors.income, colors.expense],
+            label: "Amount (₹)",
+            data: [income, expenses, savings],
+            backgroundColor: [
+              colors.incomeBg,
+              colors.expenseBg,
+              colors.savingsBg,
+            ],
+            borderColor: [colors.income, colors.expense, colors.savings],
             borderWidth: 2,
             borderRadius: 8,
-            barThickness: 60,
-            maxBarThickness: 80,
+            barThickness: 50,
+            maxBarThickness: 70,
           },
         ],
       },
@@ -143,15 +150,15 @@ const ChartManager = (function () {
   // ============================================================
 
   /**
-   * Formats a number as currency (USD)
+   * Formats a number as currency (INR)
    *
    * @param {number} amount - The amount to format
-   * @returns {string} Formatted currency string (e.g., "$1,234.56")
+   * @returns {string} Formatted currency string (e.g., "₹1,234")
    */
   function formatCurrency(amount) {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("en-IN", {
       style: "currency",
-      currency: "USD",
+      currency: "INR",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
@@ -212,7 +219,7 @@ const ChartManager = (function () {
 
   /**
    * Initializes the chart with a canvas element
-   * Creates a bar chart instance showing income and expenses
+   * Creates a bar chart instance showing income, expenses, and savings
    *
    * @param {HTMLCanvasElement} canvas - The canvas element to render the chart on
    * Requirements: 5.1 - display a bar chart showing total income and total expenses
@@ -251,7 +258,7 @@ const ChartManager = (function () {
       const ctx = canvas.getContext("2d");
 
       // Create new chart instance with initial values of 0
-      chart = new Chart(ctx, createChartConfig(0, 0));
+      chart = new Chart(ctx, createChartConfig(0, 0, 0));
     } catch (error) {
       console.error("ChartManager: Failed to initialize chart:", error);
       showFallback(0, 0);
@@ -259,16 +266,17 @@ const ChartManager = (function () {
   }
 
   /**
-   * Updates the chart with new income and expense values
+   * Updates the chart with new income, expense, and savings values
    * Refreshes the chart data to reflect current totals
    *
    * @param {number} income - Total income amount
    * @param {number} expenses - Total expenses amount
+   * @param {number} savings - Total savings amount (income - expenses)
    * Requirements: 5.2 - update chart when new transaction is added
    * Requirements: 5.3 - update chart when transaction is deleted
    * Requirements: 5.4 - update chart when selected month changes
    */
-  function updateChart(income, expenses) {
+  function updateChart(income, expenses, savings) {
     // Validate inputs - default to 0 if invalid
     const validIncome =
       typeof income === "number" && !isNaN(income) && income >= 0 ? income : 0;
@@ -276,6 +284,8 @@ const ChartManager = (function () {
       typeof expenses === "number" && !isNaN(expenses) && expenses >= 0
         ? expenses
         : 0;
+    const validSavings =
+      typeof savings === "number" && !isNaN(savings) ? savings : 0;
 
     // If Chart.js is not available, update fallback display
     if (!chartJsAvailable || !chart) {
@@ -285,7 +295,7 @@ const ChartManager = (function () {
 
     try {
       // Update chart data
-      chart.data.datasets[0].data = [validIncome, validExpenses];
+      chart.data.datasets[0].data = [validIncome, validExpenses, validSavings];
 
       // Trigger chart update with animation
       chart.update("active");

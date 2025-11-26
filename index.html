@@ -27,6 +27,9 @@
         </h1>
         <p class="app-tagline">Take control of your finances</p>
       </div>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <i class="fas fa-sun"></i>
+      </button>
     </header>
 
     <main class="app-main">
@@ -155,7 +158,7 @@
       <section class="chart-section card">
         <h2 class="section-title">
           <i class="fas fa-chart-bar"></i>
-          Income vs Expenses
+          Financial Overview
         </h2>
         <div class="chart-container">
           <canvas id="budget-chart"></canvas>
@@ -196,7 +199,48 @@
     </main>
 
     <footer class="app-footer">
-      <p>&copy; 2025 BudgetPulse. Your finances, simplified.</p>
+      <p class="footer-text">
+        Crafted with <i class="fas fa-heart"></i> by
+        <a
+          href="https://github.com/technicalmonish"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-link"
+          >Technical Monish</a
+        >
+      </p>
+      <div class="social-links">
+        <a
+          href="https://www.linkedin.com/in/technicalmonish"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          class="social-link"
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a
+          href="https://www.instagram.com/technicalmonish"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+          class="social-link"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a
+          href="https://www.youtube.com/@technicalmonish"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="YouTube"
+          class="social-link"
+        >
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+      <p class="footer-copyright">
+        &copy; 2025 BudgetPulse. All rights reserved.
+      </p>
     </footer>
 
     <!-- Chart.js for data visualization -->

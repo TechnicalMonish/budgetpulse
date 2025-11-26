@@ -191,8 +191,11 @@ const AppController = (function () {
     UIRenderer.renderSummary(summary);
     UIRenderer.updateBudgetLimitDisplay(budgetLimit);
 
-    // Update chart
-    ChartManager.updateChart(totalIncome, totalExpenses);
+    // Calculate savings
+    const savings = totalIncome - totalExpenses;
+
+    // Update chart with income, expenses, and savings
+    ChartManager.updateChart(totalIncome, totalExpenses, savings);
   }
 
   // ============================================================
@@ -335,4 +338,33 @@ const AppController = (function () {
  */
 document.addEventListener("DOMContentLoaded", function () {
   AppController.init();
+
+  // Theme toggle functionality
+  const themeToggle = document.getElementById("theme-toggle");
+  const html = document.documentElement;
+
+  // Load saved theme or default to dark
+  const savedTheme = localStorage.getItem("budgetpulse_theme") || "dark";
+  html.setAttribute("data-theme", savedTheme);
+  updateThemeIcon(savedTheme);
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+      const currentTheme = html.getAttribute("data-theme");
+      const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+      html.setAttribute("data-theme", newTheme);
+      localStorage.setItem("budgetpulse_theme", newTheme);
+      updateThemeIcon(newTheme);
+    });
+  }
+
+  function updateThemeIcon(theme) {
+    if (themeToggle) {
+      const icon = themeToggle.querySelector("i");
+      if (icon) {
+        icon.className = theme === "dark" ? "fas fa-sun" : "fas fa-moon";
+      }
+    }
+  }
 });
